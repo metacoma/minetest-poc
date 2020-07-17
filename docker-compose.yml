@@ -4,6 +4,7 @@ services:
   minetest-poc:
     build:
       context: .
+      dockerfile: Dockerfile.minetest
     image: minetest/mine9wm:latest
     depends_on:
       - jsonfs
