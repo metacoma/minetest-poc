@@ -1,3 +1,6 @@
 [submodule "games/mine9wm/mods/spiderman"]
 	path = games/mine9wm/mods/spiderman
 	url = https://github.com/metacoma/minetest-mod-spiderman
+[submodule "9p/jsonfs/jsonfs"]
+	path = 9p/jsonfs/jsonfs
+	url = https://github.com/droyo/jsonfs
