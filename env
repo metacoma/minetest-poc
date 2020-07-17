@@ -1,0 +1,2 @@
+IMAGE=metacoma/mine9wm:latest
+CONTAINER_INAME=mine9wm

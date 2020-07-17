@@ -1,0 +1,7 @@
+minetest.register_on_joinplayer(function(player)
+  local player_inventory = player:get_inventory()
+  player_inventory:add_item("main", "screwdriver:screwdriver" .. ' 1')
+  player_inventory:add_item("main", "datasource:node" .. ' 1')
+  player_inventory:add_item("main", "spiderman:cobweb" .. ' 1')
+  player_inventory:add_item("main", "platform:node" .. ' 1')
+end)

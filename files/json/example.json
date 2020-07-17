@@ -1,0 +1,51 @@
+{
+  "version": "3",
+  "services": {
+    "minetest-poc": {
+      "build": {
+        "context": "."
+      },
+      "image": "minetest/mine9wm:latest",
+      "depends_on": [
+        "jsonfs"
+      ],
+      "privileged": true,
+      "networks": [
+        "minetest-poc"
+      ],
+      "ports": [
+        "0.0.0.0:30000:30000/udp"
+      ],
+      "volumes": [
+        "./games/mine9wm:/usr/local/games/mine9wm",
+        "./files/minetest.conf:/usr/local/etc/minetest.conf"
+      ],
+      "user": "root",
+      "entrypoint": [
+        "sh",
+        "-exc",
+        "test -d /tmp/json || mkdir /tmp/json\n9mount '!tcp!jsonfs!5640' /tmp/json/\n/usr/local/bin/minetestserver --config /usr/local/etc/minetest.conf --gameid mine9wm\n"
+      ]
+    },
+    "jsonfs": {
+      "build": {
+        "context": "p9/jsonfs"
+      },
+      "image": "metacoma/9p-jsonfs:latest",
+      "networks": [
+        "minetest-poc"
+      ],
+      "volumes": [
+        "./files/json/example.json:/tmp/json"
+      ],
+      "entrypoint": [
+        "sh",
+        "-c",
+        "./jsonfs -D -v -a :5640 /tmp/json\n"
+      ]
+    }
+  },
+  "networks": {
+    "minetest-poc": null
+  }
+}
