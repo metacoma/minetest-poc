@@ -168,3 +168,29 @@ function calculate_path_level(path)
   return table.getn((string.split(path, "/")))
 end
 
+signs_lib.register_sign("basic_signs:sign_wall_glass", {
+  description = "Glass Sign",
+  yard_mesh = "signs_lib_standard_sign_yard_two_sticks.obj",
+  tiles = {
+    { name = "basic_signs_sign_wall_glass.png", backface_culling = true},
+    "basic_signs_sign_wall_glass_edges.png",
+    "basic_signs_pole_mount_glass.png",
+    nil,
+    nil,
+    "default_steel_block.png" -- the sticks on back of the yard sign model
+  },
+  inventory_image = "basic_signs_sign_wall_glass_inv.png",
+  default_color = "c",
+  locked = true,
+  entity_info = "standard",
+  sounds = default.node_sound_glass_defaults(),
+  groups = {cracky = 3, oddly_breakable_by_hand = 3},
+  allow_hanging = true,
+  allow_widefont = true,
+  allow_onpole = true,
+  allow_onpole_horizontal = true,
+  allow_yard = true,
+  use_texture_alpha = true,
+})
+-- 
+-- 

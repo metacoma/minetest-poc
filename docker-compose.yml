@@ -24,7 +24,7 @@ services:
       - |
         test -d /tmp/json || mkdir /tmp/json
         9mount '!tcp!jsonfs!5640' /tmp/json/
-        /usr/local/bin/minetestserver --config /usr/local/etc/minetest.conf --gameid mine9wm 
+        /usr/local/bin/minetestserver --config /usr/local/etc/minetest.conf --gameid mine9wm  --trace --verbose
       
   jsonfs: 
     build:
