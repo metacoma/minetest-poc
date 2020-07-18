@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.minetest
-    image: minetest/mine9wm:latest
+    image: metacoma/mine9wm:latest
     depends_on:
       - jsonfs
     privileged: true
