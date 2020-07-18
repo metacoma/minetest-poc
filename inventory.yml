@@ -1,0 +1,1244 @@
+__reclass__:
+  environment: base
+  name: moscow-colo
+  node: ./moscow-colo
+  timestamp: Wed Jan  8 12:58:55 2020
+  uri: yaml_fs:///kapitan-data/inventory/targets/moscow-colo.yml
+applications: []
+classes:
+  - dhcp
+  - monitoring-infra
+environment: base
+exports: {}
+parameters:
+  _reclass_:
+    environment: base
+    name:
+      full: moscow-colo
+      short: moscow-colo
+  dns:
+    - 172.17.172.2
+    - 8.8.8.8
+  fqdn: dc.company.com
+  hardware:
+    racks:
+      - name: rack0
+        units:
+          - description: unit1
+            name: unit1
+            tag:
+              - emptyRackUnit
+          - description: unit2
+            name: unit2
+            tag:
+              - emptyRackUnit
+          - description: unit3
+            name: unit3
+            tag:
+              - emptyRackUnit
+          - description: unit4
+            name: unit4
+            tag:
+              - emptyRackUnit
+          - compute:
+              cpu:
+                - cores: 16
+                  name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                - cores: 16
+                  name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+              memory:
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+              name: gladius210032-0
+              network:
+                management:
+                  mac: ac:1f:6b:b7:e1:c7
+              platform: Supermicro SYS-1029P-WTR
+              storage:
+                - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                    MLC 3D NAND, 860 PRO series
+                  size: 1048576
+                - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                    MLC 3D NAND, 860 PRO series
+                  size: 1048576
+              type: gladius210032
+              unitSize: 1
+            description: unit5
+            name: unit5
+            tag:
+              - computeRackUnit
+          - compute:
+              cpu:
+                - cores: 16
+                  name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                - cores: 16
+                  name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+              memory:
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+              network:
+                - name: management
+                - mac: ac:1f:6b:b3:78:ec
+                  name: lan1
+                - mac: ac:1f:6b:b3:78:ed
+                  name: lan2
+                - mac: ac:1f:6b:a4:79:5e
+                  name: sfp0
+                - mac: ac:1f:6b:a4:79:5f
+                  name: sfp1
+              platform: Supermicro SYS-1029P-WTR
+              storage:
+                - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                    MLC 3D NAND, 860 PRO series
+                  size: 1048576
+                - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                    MLC 3D NAND, 860 PRO series
+                  size: 1048576
+              type: gladius210128
+              unitSize: 1
+            description: unit6
+            name: gladius210128-0
+            tag:
+              - computeRackUnit
+          - compute:
+              cpu:
+                - cores: 16
+                  name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                - cores: 16
+                  name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+              memory:
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+              name: gladius210032-1
+              network:
+                management:
+                  mac: ac:1f:6b:b7:e2:fc
+              platform: Supermicro SYS-1029P-WTR
+              storage:
+                - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                    MLC 3D NAND, 860 PRO series
+                  size: 1048576
+                - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                    MLC 3D NAND, 860 PRO series
+                  size: 1048576
+              type: gladius210032
+              unitSize: 1
+            description: unit7
+            name: gladius210032-1
+            tag:
+              - computeRackUnit
+          - compute:
+              cpu:
+                - cores: 16
+                  name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                - cores: 16
+                  name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+              memory:
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+                - name: DDR4-2666MHz 16GB ECC REG
+                  size: 16
+              name: gladius210032-2
+              network:
+                management:
+                  mac: ac:1f:6b:b7:e2:c4
+              platform: Supermicro SYS-1029P-WTR
+              storage:
+                - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                    MLC 3D NAND, 860 PRO series
+                  size: 1048576
+                - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                    MLC 3D NAND, 860 PRO series
+                  size: 1048576
+              type: gladius210032
+              unitSize: 1
+            description: unit8
+            name: gladius210032-2
+            tag:
+              - computeRackUnit
+          - description: unit9
+            name: unit9
+            tag:
+              - emptyRackUnit
+          - description: unit10
+            name: unit10
+            tag:
+              - emptyRackUnit
+          - description: unit11
+            name: unit11
+            tag:
+              - emptyRackUnit
+          - description: unit12
+            name: unit12
+            tag:
+              - emptyRackUnit
+          - content:
+              - ports:
+                  - connected: ''
+                    name: Port 1
+                    speed: 1G
+                    type: ethernet
+                  - L1_link:
+                      cpu:
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                      memory:
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                      name: gladius211024-3
+                      network:
+                        management:
+                          mac: ac:1f:6b:cc:d0:16
+                      platform: Supermicro SYS-6029TP-HTR
+                      storage:
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                      type: gladius211024
+                      unitSize: 2
+                    name: Port 2
+                  - name: Port 4
+                  - L1_link:
+                      cpu:
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                      memory:
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                      name: gladius211024-2
+                      network:
+                        management:
+                          mac: ac:1f:6b:cc:d0:14
+                      platform: Supermicro SYS-6029TP-HTR
+                      storage:
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                      type: gladius211024
+                      unitSize: 2
+                    name: Port 3
+                  - L1_link:
+                      cpu:
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                      memory:
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                      name: gladius210032-0
+                      network:
+                        management:
+                          mac: ac:1f:6b:b7:e1:c7
+                      platform: Supermicro SYS-1029P-WTR
+                      storage:
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                      type: gladius210032
+                      unitSize: 1
+                    name: Port 4
+                  - L1_link:
+                      cpu:
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                      memory:
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                      name: gladius210032-1
+                      network:
+                        management:
+                          mac: ac:1f:6b:b7:e2:fc
+                      platform: Supermicro SYS-1029P-WTR
+                      storage:
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                      type: gladius210032
+                      unitSize: 1
+                    name: Port 5
+                  - L1_link:
+                      name: apc-rt8kxli
+                      network:
+                        management:
+                          mac: 28:29:86:18:58:ca
+                      type: apc-rt8kxli
+                    name: Port 6
+                  - L1_link:
+                      cpu:
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                      memory:
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                      name: gladius210032-2
+                      network:
+                        management:
+                          mac: ac:1f:6b:b7:e2:c4
+                      platform: Supermicro SYS-1029P-WTR
+                      storage:
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                      type: gladius210032
+                      unitSize: 1
+                    name: Port 7
+                  - L1_link:
+                      cpu:
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                      memory:
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                      name: gladius211024-0
+                      network:
+                        management:
+                          mac: ac:1f:6b:cc:d0:21
+                      platform: Supermicro SYS-6029TP-HTR
+                      storage:
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                      type: gladius211024
+                      unitSize: 2
+                    name: Port 9
+                  - L1_link:
+                      name: edgecore5812-0
+                      network:
+                        management:
+                          mac: 1c:ea:0b:e0:cd:df
+                      ports:
+                        - name: ''
+                          type: sfp
+                      type: edgecore5812
+                      unitSize: 1
+                    name: Port 10
+                  - L1_link:
+                      cpu:
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                        - cores: 16
+                          name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                      memory:
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                        - name: DDR4-2666MHz 16GB ECC REG
+                          size: 16
+                      name: gladius211024-1
+                      network:
+                        management:
+                          mac: ac:1f:6b:cc:d0:11
+                      platform: Supermicro SYS-6029TP-HTR
+                      storage:
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                        - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k
+                            IOPS, MLC 3D NAND, 860 PRO series
+                          size: 1048576
+                      type: gladius211024
+                      unitSize: 2
+                    name: Port 11
+                  - L1_link:
+                      name: edgecore5812-0
+                      network:
+                        management:
+                          mac: 1c:ea:0b:e0:cd:df
+                      ports:
+                        - name: ''
+                          type: sfp
+                      type: edgecore5812
+                      unitSize: 1
+                    name: Port 12
+                type: HpProCurve2810
+                unitSize: 1
+            description: unit13
+            name: hpprocurve-2810-0
+            tag:
+              - networkRackUnit
+          - description: unit14
+            name: unit14
+            tag:
+              - emptyRackUnit
+          - content:
+              - name: edgecore5812-0
+                network:
+                  management:
+                    mac: 1c:ea:0b:e0:cd:df
+                ports:
+                  - name: ''
+                    type: sfp
+                type: edgecore5812
+                unitSize: 1
+            description: unit15
+            name: edgecore5812-0
+            tag:
+              - networkRackUnit
+          - description: unit16
+            name: unit16
+            tag:
+              - cableManagementRackUnit
+          - content:
+              - ports:
+                  - name: ''
+                    type: sfp
+                type: edgecore5812
+                unitSize: 1
+            description: unit17
+            name: edgecore5812-1
+            tag:
+              - networkRackUnit
+          - description: unit18
+            name: powerSocket-0
+            tag:
+              - powerSocketRackUnit
+          - description: unit19
+            name: powerSocket-1
+            tag:
+              - powerSocketRackUnit
+          - description: unit20
+            name: unit20
+            tag:
+              - emptyRackUnit
+          - description: unit21
+            name: unit21
+            tag:
+              - emptyRackUnit
+          - description: unit22
+            name: unit22
+            tag:
+              - emptyRackUnit
+          - description: unit23
+            name: unit23
+            tag:
+              - emptyRackUnit
+          - content:
+              - cpu:
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                memory:
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                name: gladius211024-0
+                network:
+                  management:
+                    mac: ac:1f:6b:cc:d0:21
+                platform: Supermicro SYS-6029TP-HTR
+                storage:
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                type: gladius211024
+                unitSize: 2
+              - cpu:
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                memory:
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                name: gladius211024-1
+                network:
+                  management:
+                    mac: ac:1f:6b:cc:d0:11
+                platform: Supermicro SYS-6029TP-HTR
+                storage:
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                type: gladius211024
+                unitSize: 2
+              - cpu:
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                memory:
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                name: gladius211024-2
+                network:
+                  management:
+                    mac: ac:1f:6b:cc:d0:14
+                platform: Supermicro SYS-6029TP-HTR
+                storage:
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                type: gladius211024
+                unitSize: 2
+              - cpu:
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                memory:
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                name: gladius211024-3
+                network:
+                  management:
+                    mac: ac:1f:6b:cc:d0:16
+                platform: Supermicro SYS-6029TP-HTR
+                storage:
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                type: gladius211024
+                unitSize: 2
+            description: unit24
+            name: gladius211024-0
+            tag:
+              - computeRackUnit
+          - content:
+              - cpu:
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                memory:
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                name: gladius211024-0
+                network:
+                  management:
+                    mac: ac:1f:6b:cc:d0:21
+                platform: Supermicro SYS-6029TP-HTR
+                storage:
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                type: gladius211024
+                unitSize: 2
+              - cpu:
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                memory:
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                name: gladius211024-1
+                network:
+                  management:
+                    mac: ac:1f:6b:cc:d0:11
+                platform: Supermicro SYS-6029TP-HTR
+                storage:
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                type: gladius211024
+                unitSize: 2
+              - cpu:
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                memory:
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                name: gladius211024-2
+                network:
+                  management:
+                    mac: ac:1f:6b:cc:d0:14
+                platform: Supermicro SYS-6029TP-HTR
+                storage:
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                type: gladius211024
+                unitSize: 2
+              - cpu:
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                  - cores: 16
+                    name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+                memory:
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                  - name: DDR4-2666MHz 16GB ECC REG
+                    size: 16
+                name: gladius211024-3
+                network:
+                  management:
+                    mac: ac:1f:6b:cc:d0:16
+                platform: Supermicro SYS-6029TP-HTR
+                storage:
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                  - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS,
+                      MLC 3D NAND, 860 PRO series
+                    size: 1048576
+                type: gladius211024
+                unitSize: 2
+            description: unit25
+            name: gladius211024-0
+            tag:
+              - computeRackUnit
+          - description: unit26
+            name: unit26
+            tag:
+              - emptyRackUnit
+          - description: unit27
+            name: unit27
+            tag:
+              - emptyRackUnit
+          - description: unit28
+            name: unit28
+            tag:
+              - emptyRackUnit
+          - description: unit29
+            name: unit29
+            tag:
+              - emptyRackUnit
+          - description: unit31
+            name: unit30
+            tag:
+              - emptyRackUnit
+          - description: unit31
+            name: unit31
+            tag:
+              - emptyRackUnit
+          - description: unit31
+            name: unit32
+            tag:
+              - emptyRackUnit
+          - description: unit31
+            name: unit33
+            tag:
+              - emptyRackUnit
+          - description: unit34
+            name: unit34
+            tag:
+              - emptyRackUnit
+          - content:
+              - name: apc-rt8kxli
+                network:
+                  management:
+                    mac: 28:29:86:18:58:ca
+                type: apc-rt8kxli
+            description: unit34
+            name: apc-rt8kxli-0
+            tag:
+              - upsRackUnit
+          - content:
+              - name: apc-rt8kxli
+                network:
+                  management:
+                    mac: 28:29:86:18:58:ca
+                type: apc-rt8kxli
+            description: unit35
+            name: apc-rt8kxli-0
+            tag:
+              - upsRackUnit
+          - content:
+              - name: apc-rt8kxli
+                network:
+                  management:
+                    mac: 28:29:86:18:58:ca
+                type: apc-rt8kxli
+            description: unit36
+            name: apc-rt8kxli-0
+            tag:
+              - upsRackUnit
+          - content:
+              - name: apc-rt8kxli
+                network:
+                  management:
+                    mac: 28:29:86:18:58:ca
+                type: apc-rt8kxli
+            description: unit37
+            name: apc-rt8kxli-0
+            tag:
+              - upsRackUnit
+          - content:
+              - name: apc-rt8kxli
+                network:
+                  management:
+                    mac: 28:29:86:18:58:ca
+                type: apc-rt8kxli
+            description: unit38
+            name: apc-rt8kxli-0
+            tag:
+              - upsRackUnit
+          - content:
+              - name: apc-rt8kxli
+                network:
+                  management:
+                    mac: 28:29:86:18:58:ca
+                type: apc-rt8kxli
+            description: unit39
+            name: apc-rt8kxli-0
+            tag:
+              - upsRackUnit
+          - content:
+              - name: apc-rt8kxli
+                network:
+                  management:
+                    mac: 28:29:86:18:58:ca
+                type: apc-rt8kxli
+            description: unit40
+            name: apc-rt8kxli-0
+            tag:
+              - upsRackUnit
+          - content:
+              - name: apc-rt8kxli
+                network:
+                  management:
+                    mac: 28:29:86:18:58:ca
+                type: apc-rt8kxli
+            description: unit41
+            name: apc-rt8kxli-0
+            tag:
+              - upsRackUnit
+  kapitan:
+    compile:
+      - input_paths:
+          - templates/dhcp/isc-dhcp-server.conf
+        input_type: jinja2
+        output_path: dhcp/
+      - input_paths:
+          - templates/dhcp/dhcpd-deployment.yml
+        input_type: copy
+        output_path: dhcp/
+      - input_paths:
+          - templates/monitoring/thruk-deployment.yml
+        input_type: copy
+        output_path: monitoring-infra/
+      - input_paths:
+          - templates/monitoring/nagios-deployment.yml
+        input_type: copy
+        output_path: monitoring-infra/
+      - input_paths:
+          - templates/monitoring/nagios/hosts.cfg
+        input_type: jinja2
+        output_path: monitoring-infra/conf.d
+    vars:
+      target: moscow-colo
+  networks:
+    - dhcp4:
+        gw:
+          - 172.17.172.2
+        network:
+          netmask: 255.255.255.0
+          prefix: 172.17.172.0
+        range:
+          from: 172.17.172.50
+          to: 172.17.172.255
+        static:
+          - addr: 172.17.172.10
+            cpu:
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+            memory:
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+            name: gladius210032-0
+            network:
+              management:
+                mac: ac:1f:6b:b7:e1:c7
+            platform: Supermicro SYS-1029P-WTR
+            storage:
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+            type: gladius210032
+            unitSize: 1
+          - addr: 172.17.172.11
+            cpu:
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+            memory:
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+            name: gladius210032-1
+            network:
+              management:
+                mac: ac:1f:6b:b7:e2:fc
+            platform: Supermicro SYS-1029P-WTR
+            storage:
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+            type: gladius210032
+            unitSize: 1
+          - addr: 172.17.172.12
+            cpu:
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+            memory:
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+            name: gladius210032-2
+            network:
+              management:
+                mac: ac:1f:6b:b7:e2:c4
+            platform: Supermicro SYS-1029P-WTR
+            storage:
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+            type: gladius210032
+            unitSize: 1
+          - addr: 172.17.172.13
+            cpu:
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+            memory:
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+            name: gladius211024-0
+            network:
+              management:
+                mac: ac:1f:6b:cc:d0:21
+            platform: Supermicro SYS-6029TP-HTR
+            storage:
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+            type: gladius211024
+            unitSize: 2
+          - addr: 172.17.172.14
+            cpu:
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+            memory:
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+            name: gladius211024-1
+            network:
+              management:
+                mac: ac:1f:6b:cc:d0:11
+            platform: Supermicro SYS-6029TP-HTR
+            storage:
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+            type: gladius211024
+            unitSize: 2
+          - addr: 172.17.172.15
+            cpu:
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+            memory:
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+            name: gladius211024-2
+            network:
+              management:
+                mac: ac:1f:6b:cc:d0:14
+            platform: Supermicro SYS-6029TP-HTR
+            storage:
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+            type: gladius211024
+            unitSize: 2
+          - addr: 172.17.172.16
+            cpu:
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+              - cores: 16
+                name: "Intel\xAE Xeon Gold 5218 2.30GHz"
+            memory:
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+              - name: DDR4-2666MHz 16GB ECC REG
+                size: 16
+            name: gladius211024-3
+            network:
+              management:
+                mac: ac:1f:6b:cc:d0:16
+            platform: Supermicro SYS-6029TP-HTR
+            storage:
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+              - name: SSD Samsung SATA 2.5" 1000GB 6Gb/s, 560/530MB/s, 90k IOPS, MLC
+                  3D NAND, 860 PRO series
+                size: 1048576
+            type: gladius211024
+            unitSize: 2
+          - addr: 172.17.172.17
+            name: apc-rt8kxli
+            network:
+              management:
+                mac: 28:29:86:18:58:ca
+            type: apc-rt8kxli
+          - addr: 172.17.172.18
+            name: edgecore5812-0
+            network:
+              management:
+                mac: 1c:ea:0b:e0:cd:df
+            ports:
+              - name: ''
+                type: sfp
+            type: edgecore5812
+            unitSize: 1
+          - addr: 172.17.172.19
+            name: edgecore5812-1
+            network:
+              management:
+                mac: 1c:ea:0b:e0:cd:01
+            ports:
+              - name: ''
+                type: sfp
+            type: edgecore5812
+            unitSize: 1
+      lan: 101
+      name: management
+      ports:
+        tagged:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+        untagged:
+          - 6
+    - name: public
+      ports:
+        tagged:
+          - 15
+        untagged:
+          - 44
+      vlan: 102
+    - name: private
+      vlan: 103
