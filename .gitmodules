@@ -4,3 +4,6 @@
 [submodule "9p/jsonfs/jsonfs"]
 	path = 9p/jsonfs/jsonfs
 	url = https://github.com/droyo/jsonfs
+[submodule "games/mine9wm/mods/signs_lib"]
+	path = games/mine9wm/mods/signs_lib
+	url = https://gitlab.com/VanessaE/signs_lib
