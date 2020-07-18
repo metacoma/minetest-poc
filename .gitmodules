@@ -4,3 +4,6 @@
 [submodule "9p/jsonfs/jsonfs"]
 	path = 9p/jsonfs/jsonfs
 	url = https://github.com/droyo/jsonfs
+[submodule "games/mine9wm/mods/display_modpack"]
+	path = games/mine9wm/mods/display_modpack
+	url = https://github.com/pyrollo/display_modpack/
