@@ -1,5 +1,8 @@
 local lfs = require"lfs"
 
+dofile(minetest.get_modpath("mine9fs") .. "/entity_file.lua")
+dofile(minetest.get_modpath("mine9fs") .. "/entity_dir.lua")
+
 local drawed_paths = { } 
 
 local level_platform_counter = { 
@@ -70,13 +73,9 @@ minetest.register_node("mine9fs:node", {
     minetest.chat_send_player(player:get_player_name(), "cd " .. path)
 
 
-
   end,
 }) 
 
-minetest.register_node("mine9fs:file", {
-  tiles = { "mine9fs_file.png" },
-}) 
 
 function get_file_list(path) 
   local file_list = {}
@@ -145,20 +144,25 @@ function draw_platform(path, start_pos)
   local files = get_file_list(path)
   for _, file in pairs(files) do
     local new_node_pos = random_pos_on_platform(start_pos, platform_size, 1)
-    local node_name = "mine9fs:file"
+
 
     if (file["t"] == "directory") then
-      node_name = "mine9fs:node"
+      minetest.add_node(new_node_pos, { name = "mine9fs:node" } ) 
+      minetest.get_meta(new_node_pos):from_table({
+        fields = {
+          file = ((path == "/") and "" or path) .. "/" ..  file["name"],
+          t = file["t"]
+        } 
+      })
+    end
+    if (file["t"] == "file") then
+      local entity = minetest.add_entity(new_node_pos, "mine9fs:file")
+      entity:set_nametag_attributes({
+        {a = 255, r = 255, g = 0, b = 0},
+        text = file["name"] 
+      }) 
     end
 
-    minetest.add_node(new_node_pos, { name = node_name } ) 
-
-    minetest.get_meta(new_node_pos):from_table({
-      fields = {
-        file = ((path == "/") and "" or path) .. "/" ..  file["name"],
-        t = file["t"]
-      } 
-    })
   end
 
 end
@@ -168,29 +172,10 @@ function calculate_path_level(path)
   return table.getn((string.split(path, "/")))
 end
 
-signs_lib.register_sign("basic_signs:sign_wall_glass", {
-  description = "Glass Sign",
-  yard_mesh = "signs_lib_standard_sign_yard_two_sticks.obj",
-  tiles = {
-    { name = "basic_signs_sign_wall_glass.png", backface_culling = true},
-    "basic_signs_sign_wall_glass_edges.png",
-    "basic_signs_pole_mount_glass.png",
-    nil,
-    nil,
-    "default_steel_block.png" -- the sticks on back of the yard sign model
-  },
-  inventory_image = "basic_signs_sign_wall_glass_inv.png",
-  default_color = "c",
-  locked = true,
-  entity_info = "standard",
-  sounds = default.node_sound_glass_defaults(),
-  groups = {cracky = 3, oddly_breakable_by_hand = 3},
-  allow_hanging = true,
-  allow_widefont = true,
-  allow_onpole = true,
-  allow_onpole_horizontal = true,
-  allow_yard = true,
-  use_texture_alpha = true,
+minetest.register_node("mine9fs:file", {
+  tiles = { "mine9fs_file.png" }
 })
--- 
--- 
+
+
+minetest.register_entity("mine9fs:file", Mine9File) 
+minetest.register_entity("mine9fs:dir", Mine9Dir) 

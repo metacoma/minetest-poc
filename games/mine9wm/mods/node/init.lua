@@ -12,8 +12,18 @@ minetest.register_on_generated(function(minp, maxp, seed)
       minetest.add_node({ x = 10, y = 1, z = 10 }, { name = "node:wifi"} )
       minetest.add_node({ x = 14, y = 1, z = 14 }, { name = "node:dhcp"} )
       minetest.add_node({ x = 18, y = 1, z = 2 }, { name = "datasource:node"} )
-      minetest.add_node({ x = 18, y = 1, z = 13 }, { name = "tcpdump:node"} )
       minetest.add_node({ x = 13, y = 1, z = 10 }, { name = "mine9fs:node"} )
+      local root_dir = minetest.add_entity(
+        { 
+          x = 15,
+          y = 1,
+          z = 16
+        },
+        "mine9fs:dir"
+      ) 
+      root_dir:get_luaentity():set_path("/")
+      minetest.log("action", "root dir is NILL")
+    
   end
 end)
 
