@@ -156,3 +156,15 @@ minetest.register_node("mine9fs:kubernetes", {
 
 minetest.register_entity("mine9fs:file", Mine9File) 
 minetest.register_entity("mine9fs:dir", Mine9Dir) 
+
+minetest.register_tool("mine9fs:configure", {
+  description = "kubernetes_configure.png",
+  inventory_image = "kubernetes_configure.png",
+})
+
+
+minetest.register_tool("mine9fs:run", {
+  description = "kubernetes_exec.png",
+  inventory_image = "kubernetes_exec.png",
+})
+
