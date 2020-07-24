@@ -2,6 +2,7 @@ local lfs = require"lfs"
 
 dofile(minetest.get_modpath("mine9fs") .. "/entity_file.lua")
 dofile(minetest.get_modpath("mine9fs") .. "/entity_dir.lua")
+dofile(minetest.get_modpath("mine9fs") .. "/platform.lua")
 
 local drawed_paths = { } 
 
@@ -26,7 +27,7 @@ local shift = {
   z = 0
 } 
 
-local root_node = "/tmp/json"
+local root_node = "/kubernetes"
 
 function calculate_new_platform_pos(path) 
   local path_level = calculate_path_level(path) 
@@ -46,6 +47,7 @@ function calculate_new_platform_pos(path)
 end
 
 minetest.register_node("mine9fs:node", {
+
   tiles = { "mine9fs_node.png" },
   on_punch = function(pos, node, player, pointed_thing) 
 
@@ -93,24 +95,6 @@ function get_file_list(path)
   return file_list
 end
 
-function attrdir (path)
-    for file in lfs.dir(path) do
-        if file ~= "." and file ~= ".." then
-            local f = path..'/'..file
-            print ("\t "..f)
-            local attr = lfs.attributes (f)
-            assert (type(attr) == "table")
-            if attr.mode == "directory" then
-                attrdir (f)
-            else
-                for name, value in pairs(attr) do
-                    print (name, value)
-                end
-            end
-        end
-    end
-end
-
 function random_pos_on_platform(platform, platform_size, height)
     return {x = (platform.x + 1) + (math.random(1, platform_size.x) - 2), y = platform.y + height, z = (platform.z + 1) + ( math.random(1,platform_size.z) - 2) }
 end
@@ -145,23 +129,12 @@ function draw_platform(path, start_pos)
   for _, file in pairs(files) do
     local new_node_pos = random_pos_on_platform(start_pos, platform_size, 1)
 
+    local abs_path = ((path == "/") and "" or path) .. "/" ..  file["name"]
 
-    if (file["t"] == "directory") then
-      minetest.add_node(new_node_pos, { name = "mine9fs:node" } ) 
-      minetest.get_meta(new_node_pos):from_table({
-        fields = {
-          file = ((path == "/") and "" or path) .. "/" ..  file["name"],
-          t = file["t"]
-        } 
-      })
-    end
-    if (file["t"] == "file") then
-      local entity = minetest.add_entity(new_node_pos, "mine9fs:file")
-      entity:set_nametag_attributes({
-        {a = 255, r = 255, g = 0, b = 0},
-        text = file["name"] 
-      }) 
-    end
+    local entity_type = (file["t"] == "directory") and "mine9fs:dir" or "mine9fs:file"
+
+    local entity = minetest.add_entity(new_node_pos, entity_type)
+    entity:get_luaentity():set_path(abs_path) 
 
   end
 
@@ -174,6 +147,10 @@ end
 
 minetest.register_node("mine9fs:file", {
   tiles = { "mine9fs_file.png" }
+})
+
+minetest.register_node("mine9fs:kubernetes", {
+  tiles = { "kubernetes.png" }
 })
 
 

@@ -1,6 +1,5 @@
 Mine9File = {
     initial_properties = {
-        hp_max = 10000000,
         drawtype = "front",
         physical = true,
         visual = "cube",
@@ -8,13 +7,25 @@ Mine9File = {
         visual_size = {x = 1, y = 1},
         spritediv = {x = 1, y = 1},
         initial_sprite_basepos = {x = 0, y = 0},
+        groups = { immortal = 1 }
     },
-    message = "hi"
+    path = nil
 }
 
+function Mine9File:set_path(path) 
+  minetest.log("set path to " .. path)
+  self.path = path
+  self.object:set_nametag_attributes({
+    {a = 255, r = 255, g = 0, b = 0},
+    text = self:get_path()
+  }) 
+end
+
+function Mine9File:get_path() 
+  return self.path
+end
+
 function Mine9File:on_punch(puncher, time_from_last_punch, tool_capabilities, direction)
-    self.object:set_hp(100000)
-    minetest.chat_send_player(puncher:get_player_name(), "punch")
     return false
 end
 
