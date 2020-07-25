@@ -3,14 +3,14 @@ COPY inferno-os /usr/inferno/
 ENV PATH=$PATH:/usr/inferno/Linux/386/bin
 WORKDIR /usr/inferno
 RUN apt-get update && \
-    apt-get install -y build-essential libx11-dev libxext-dev libx11-6 libxext-dev
+    apt-get install -y build-essential libx11-dev libxext-dev libx11-6 libxext-dev \
+    python3-pip libfuse2 curl git
 RUN \
   MKFLAGS='SYSHOST=Linux OBJTYPE=386 ROOT='$PWD; \
   mk $MKFLAGS mkdirs && \
   mk $MKFLAGS emuinstall && \
   mk $MKFLAGS emunuke
-RUN apt-get install -y python3-pip
-RUN apt-get install -y git libfuse2 curl
+
 RUN pip3 install git+https://github.com/opencredo/kubefuse.git
 RUN curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
 RUN chmod +x /usr/local/bin/kubectl
