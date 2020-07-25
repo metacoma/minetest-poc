@@ -55,6 +55,26 @@ services:
         test -d /usr/inferno/kubernetes || mkdir /usr/inferno/kubernetes
         kubefuse -v /usr/inferno/kubernetes &
         emu /dis/sh /host/export.sh
+
+  sshfs:
+    build:
+      context: .
+      dockerfile: Dockerfile.sshfs
+    image: metacoma/inferno-os:latest
+    privileged: true
+    expose:
+      - 1800
+    cap_add:
+      - SYS_ADMIN
+    networks:
+      - minetest-poc
+    volumes:
+      - ~/.ssh:/root/.ssh
+    entrypoint:
+      - sh 
+      - -exc
+      - |
+        sleep 3600
       
       
            
