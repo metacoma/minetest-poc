@@ -8,7 +8,10 @@ services:
     image: metacoma/mine9wm:latest
     depends_on:
       - jsonfs
-      - kubernetes
+#      - kubernetes
+      - sshfs-ob0
+      - sshfs-ob1
+      - sshfs-ob2
     privileged: true
     networks:
       - minetest-poc
@@ -23,8 +26,15 @@ services:
       - sh
       - -exc
       - |
-        test -d /kubernetes || mkdir /kubernetes
+        test -d /kubernetes || mkdir /kubernetes 
+        test -d /ob0 || mkdir /ob0
+        test -d /ob1 || mkdir /ob1
+        test -d /ob2 || mkdir /ob2
+        9mount '!tcp!sshfs-ob0!1800' /ob0
+        9mount '!tcp!sshfs-ob1!1800' /ob1
+        9mount '!tcp!sshfs-ob2!1800' /ob2
         9mount '!tcp!kubernetes!1800' /kubernetes
+        sleep 3
         /usr/local/bin/minetestserver --config /usr/local/etc/minetest.conf --gameid mine9wm 
 
 #        9mount '!tcp!jsonfs!5640' /tmp/json/
@@ -47,20 +57,23 @@ services:
       - ./kubeconfig:/root/.kube/config
       - /dev/fuse:/dev/fuse
       - ~/.aws/:/root/.aws
-      - ./files/inferno/:/usr/inferno/host
+      - ./files/inferno/:/usr/inferno/host:ro
+    environment:
+      - MOUNT_POINT=/usr/inferno/kubernetes
+      - STYX_PORT=1800
     entrypoint:
       - sh 
       - -exc
       - |
-        test -d /usr/inferno/kubernetes || mkdir /usr/inferno/kubernetes
-        kubefuse -v /usr/inferno/kubernetes &
-        emu /dis/sh /host/export.sh
+        test -d $${MOUNT_POINT} || mkdir $${MOUNT_POINT}
+        kubefuse -v $${MOUNT_POINT} &
+        emu /dis/sh /host/export.sh /`basename $${MOUNT_POINT}` $${STYX_PORT}
 
-  sshfs:
+  sshfs-ob0:
     build:
       context: .
       dockerfile: Dockerfile.sshfs
-    image: metacoma/inferno-os:latest
+    image: metacoma/inferno-os-sshfs:latest
     privileged: true
     expose:
       - 1800
@@ -70,15 +83,75 @@ services:
       - minetest-poc
     volumes:
       - ~/.ssh:/root/.ssh
+      - ./files/inferno/:/usr/inferno/host:ro
+    environment:
+      - MOUNT_POINT=/usr/inferno/ob0
+      - SSH_HOST=ob0
+      - STYX_PORT=1800
     entrypoint:
       - sh 
       - -exc
       - |
-        sleep 3600
-      
-      
-           
-    
+        chown -R root:root /root/.ssh
+        test -d $${MOUNT_POINT} || mkdir $${MOUNT_POINT}
+        sshfs $${SSH_HOST}:/ $${MOUNT_POINT}
+        emu /dis/sh /host/export.sh /`basename $${MOUNT_POINT}` $${STYX_PORT}
+
+  sshfs-ob1:
+    build:
+      context: .
+      dockerfile: Dockerfile.sshfs
+    image: metacoma/inferno-os-sshfs:latest
+    privileged: true
+    expose:
+      - 1800
+    cap_add:
+      - SYS_ADMIN
+    networks:
+      - minetest-poc
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - ./files/inferno/:/usr/inferno/host:ro
+    environment:
+      - MOUNT_POINT=/usr/inferno/ob1
+      - SSH_HOST=ob1
+      - STYX_PORT=1800
+    entrypoint:
+      - sh 
+      - -exc
+      - |
+        chown -R root:root /root/.ssh
+        test -d $${MOUNT_POINT} || mkdir $${MOUNT_POINT}
+        sshfs $${SSH_HOST}:/ $${MOUNT_POINT}
+        emu /dis/sh /host/export.sh /`basename $${MOUNT_POINT}` $${STYX_PORT}
+
+  sshfs-ob2:
+    build:
+      context: .
+      dockerfile: Dockerfile.sshfs
+    image: metacoma/inferno-os-sshfs:latest
+    privileged: true
+    expose:
+      - 1800
+    cap_add:
+      - SYS_ADMIN
+    networks:
+      - minetest-poc
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - ./files/inferno/:/usr/inferno/host:ro
+    environment:
+      - MOUNT_POINT=/usr/inferno/ob2
+      - SSH_HOST=ob2
+      - STYX_PORT=1800
+    entrypoint:
+      - sh 
+      - -exc
+      - |
+        chown -R root:root /root/.ssh
+        test -d $${MOUNT_POINT} || mkdir $${MOUNT_POINT}
+        sshfs $${SSH_HOST}:/ $${MOUNT_POINT}
+        emu /dis/sh /host/export.sh /`basename $${MOUNT_POINT}` $${STYX_PORT}
       
   jsonfs: 
     build:
