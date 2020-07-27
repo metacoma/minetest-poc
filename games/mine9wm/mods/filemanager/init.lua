@@ -62,23 +62,30 @@ FileManagerDir = {
 
 FileManagerDir.set_path = function(self, new_path) 
   self.path = new_path
-  self:display_path(new_path) 
+  local basename = string.gsub(self:get_path(), "(.*/)(.*)", "%2")
+  local display_path = (basename ~= nil and basename ~= "") and basename or "/"
+  self:set_display_path(display_path) 
+  if (not self:is_dir()) then
+    self.object:set_properties({
+        automatic_rotate = 0,
+    })
+  end
 end
 
 FileManagerDir.get_path = function(self) 
   return self.path
 end
 
-FileManagerDir.get_display_path = function(self)
-  local basename = string.gsub(self:get_path(), "(.*/)(.*)", "%2")
-  return (basename ~= nil and basename ~= "") and basename or "/"
-end
-
-FileManagerDir.display_path = function(self) 
+FileManagerDir.set_display_path = function(self, new_display_path) 
+  self.display_path = new_display_path
   self.object:set_nametag_attributes({
     colorspec = self:get_path_color(),
-    text = self:get_display_path()
+    text = self.display_path
   }) 
+end
+
+FileManagerDir.get_display_path = function(self)
+  return self.display_path
 end
 
 FileManagerDir.set_path_color = function(self, new_color) 
@@ -106,15 +113,46 @@ FileManagerDir.z_draw = function(self, attributes)
   else
     self:set_platform_pos(self:get_parent():get_platform_pos())
   end
+  local parent_path = self:get_path()
+
+  -- ".."
+  local n = 1
+  local entity_pos = self:calc_pos_on_platform(n)
+  local entity = minetest.add_entity(entity_pos, "filemanager:dir")
+  entity:get_luaentity():set_meta(
+    { 
+      name = get_parent_dir(self:get_path()),
+      type = "directory"
+    } 
+  )
+  entity:get_luaentity():set_path(get_parent_dir(parent_path))
+  entity:get_luaentity():set_display_path("..") 
+  texture = self:path2texture("..")
+  if (texture ~= nil) then
+      entity:set_properties({
+        textures = { texture, texture, texture, texture, texture, texture},
+        base_texture = texture
+  })
+  end
+  entity:get_luaentity():set_parent(self)
+  self.path_nodes[n] = entity
+  -- 
+
   for n, file in ipairs(attributes.file_list) do
-    local entity_pos = self:calc_pos_on_platform(n)
-    local entity = minetest.add_entity(entity_pos, "filemanager:dir")
-    self.path_nodes[n] = entity
+    entity_pos = self:calc_pos_on_platform(n + 1)
+    entity = minetest.add_entity(entity_pos, "filemanager:dir")
+    -- XXX refact
+    local abs_path = ((parent_path == "/" or parent_path == "//") and "" or parent_path) .. "/" ..  file["name"]
+    self.path_nodes[n + 1] = entity
     entity:get_luaentity():set_meta(file) 
-    entity:get_luaentity():set_path(self:get_path() .. "/" .. file.name) 
+    entity:get_luaentity():set_path(abs_path) 
     entity:get_luaentity():set_parent(self)
   
-    local texture = path2icon(entity:get_luaentity():get_path())
+    texture = self:path2texture(entity:get_luaentity():get_path())
+
+    if (not entity:get_luaentity():is_dir()) then
+      texture = "mine9fs_file.png"
+    end
 
     if (texture ~= nil) then
       entity:set_properties({
@@ -277,7 +315,7 @@ FileManagerDir.on_punch = function(self, puncher, time_from_last_punch, tool_cap
   local file_list = self:get_file_list()
 
   --self:set_platform_size(table.getn(file_list))
-  self:set_platform_size(math.ceil(math.sqrt(table.getn(file_list) * 8)))
+  self:set_platform_size(math.ceil(math.sqrt(table.getn(file_list) * 8)) + 1)
   self:draw({
     file_list = file_list,
     observer = puncher
@@ -296,10 +334,12 @@ minetest.register_tool("filemanager:cd", {
 FileManagerDir.get_file_list = function(self) 
   local file_list = {}
   local path = self:get_path()
+--[[
   table.insert(file_list, {
-    name = "..",
+    name = self:get_path(),
     type = "directory"
   })
+--]]
   for file in lfs.dir(path) do
     if file ~= "." and file ~= ".." then
       local attr = lfs.attributes (path .. '/' .. file)
@@ -331,19 +371,17 @@ function draw_area(pos, size)
 end
 
 
-function path2icon(path) 
+FileManagerDir.path2texture = function(self, path) 
   local texture = nil
 
-  if (({string.gsub(path, "\.\.$", "")})[2] == 1) then
-    return nil
-  end
+
 
 
   if (path == "/kubernetes") then
     texture = "kubernetes.png"
   end
 
-  if (calculate_path_level(path) == 2) then
+  if (calculate_path_level(path) == 2 and ({string.gsub(path, "/kubernetes/.*", "")})[2] == 1) then
     texture = "kubernetes_ns.png"
   end
 
@@ -385,5 +423,22 @@ function path2icon(path)
     texture = "kubernetes_cm.png"
   end
 
+  if (path == "/ob1" or path == "/ob2" or path == "/ob0") then
+    texture = "ssh.png"
+  end
+
+  
+  if (path == "..") then
+    minetest.log("ok " .. path .. " and ..")
+    return "two_dots.png"
+  end
+  minetest.log("path == " .. path .. " self:get_path() = " .. self:get_path())
+
   return texture
+end
+
+function get_parent_dir(path)
+  local path_table = split(path, "/")
+  table.remove(path_table, #path_table)
+  return "/" .. table.concat(path_table, "/")
 end
