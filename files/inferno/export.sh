@@ -1,1 +1,3 @@
-listen -A 'tcp!*!1800' { export /kubernetes } 
+dir = $1
+port = $2
+listen -A 'tcp!*!'$port { export $dir } 

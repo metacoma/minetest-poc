@@ -24,27 +24,6 @@ start_ground_size = {
 
 
 
-minetest.register_on_joinplayer(function(player)
-
-    print("register_on_joinplayer")
-
-    player:set_pos(random_pos_on_start_ground(10))
-    local e1 = minetest.add_entity({
-        x = 25,
-        y = 25,
-        z = 25 }, "platform:dir")
-    e1:get_luaentity():set_name("10.1.120.99")
-    --e1:get_luaentity():set_path("AAAAAAA")
-    
-    
-    --e1:set_nametag_attributes({a = 255, r = 0, g = 255, b = 255}, "AAAA")
-
-    return player
-
-end)
-
-
-
 function random_pos_on_start_ground(height)
 
     return {x = (start_pos.x + 1) + (math.random(1, start_ground_size.x) - 2), y = start_pos.y + height, z = (start_pos.z + 1) + ( math.random(1,start_ground_size.z) - 2) }
