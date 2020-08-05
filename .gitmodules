@@ -7,6 +7,3 @@
 [submodule "games/mine9wm/mods/display_modpack"]
 	path = games/mine9wm/mods/display_modpack
 	url = https://github.com/pyrollo/display_modpack/
-[submodule "inferno-os"]
-	path = inferno-os
-	url = https://bitbucket.org/inferno-os/inferno-os/

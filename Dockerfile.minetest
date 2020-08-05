@@ -5,7 +5,7 @@ WORKDIR /tmp
 ENV MINETEST_VERSION 5.3.0
 RUN wget https://github.com/minetest/minetest/archive/${MINETEST_VERSION}.tar.gz && tar xf ${MINETEST_VERSION}.tar.gz && mv minetest-${MINETEST_VERSION} ./minetest && rm ${MINETEST_VERSION}.tar.gz 
 WORKDIR /tmp/minetest
-RUN cmake . -DRUN_IN_PLACE=TRUE -DBUILD_SERVER=TRUE -DBUILD_CLIENT=FALSE
+RUN cmake . -DRUN_IN_PLACE=TRUE -DBUILD_SERVER=TRUE -DBUILD_CLIENT=FALSE -DCMAKE_BUILD_TYPE=DEBUG
 ADD patch/cms_no_security.patch  .
 RUN patch -p1 < ./cms_no_security.patch
 RUN make -j $(nproc)
@@ -13,6 +13,12 @@ RUN make install
 RUN luarocks install lyaml 
 RUN luarocks install inspect
 RUN luarocks install luafilesystem
+RUN apt-get install -y git  libfuse-dev
+WORKDIR /tmp
+RUN git clone https://github.com/bunny351/9pfs
+WORKDIR 9pfs
+RUN make \
+    && make install
 
 WORKDIR /usr/local
 EXPOSE 30000

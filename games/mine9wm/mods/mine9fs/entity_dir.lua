@@ -40,9 +40,11 @@ function Mine9Dir:set_path(path)
     texture = "kubernetes.png"
   end
 
+  --[[
   if (calculate_path_level(path) == 2) then
     texture = "kubernetes_ns.png"
   end
+  ]]--
 
   if (({string.gsub(path, "/pod[$/]?", "")})[2] == 1) then
     texture = "kubernetes_pod.png"
@@ -80,6 +82,10 @@ function Mine9Dir:set_path(path)
 
   if (({string.gsub(path, "/configmaps[$/]?", "")})[2] == 1) then
     texture = "kubernetes_cm.png"
+  end
+
+  if (({string.gsub(path, "/gridchan$", "")})[2] == 1) then
+    texture = "mine9fs_plan9.png"
   end
 
   if (texture ~= nil) then

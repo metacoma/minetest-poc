@@ -30,15 +30,33 @@ services:
         test -d /ob0 || mkdir /ob0
         test -d /ob1 || mkdir /ob1
         test -d /ob2 || mkdir /ob2
-        9mount '!tcp!sshfs-ob0!1800' /ob0
-        9mount '!tcp!sshfs-ob1!1800' /ob1
-        9mount '!tcp!sshfs-ob2!1800' /ob2
-        9mount '!tcp!kubernetes!1800' /kubernetes
+        test -d /gridchan || mkdir /gridchan 
+        9pfs -p 6666 192.168.1.160 /gridchan
         sleep 3
         /usr/local/bin/minetestserver --config /usr/local/etc/minetest.conf --gameid mine9wm 
 
+#        9mount '!tcp!sshfs-ob0!1800' /ob0
+#        9mount '!tcp!sshfs-ob1!1800' /ob1
+#        9mount '!tcp!sshfs-ob2!1800' /ob2
+#        9mount '!tcp!kubernetes!1800' /kubernetes
+
 #        9mount '!tcp!jsonfs!5640' /tmp/json/
 #        /usr/local/bin/minetestserver --config /usr/local/etc/minetest.conf --gameid mine9wm  --trace --verbose
+
+  inferno: 
+    build:
+      context: .
+      dockerfile: Dockerfile.inferno
+    image: metacoma/inferno-os
+    networks:
+      - minetest-poc
+    entrypoint:  
+      - sh
+      - -exc
+      - |
+        /bin/sleep 36000
+        
+    
 
   kubernetes:
     build:

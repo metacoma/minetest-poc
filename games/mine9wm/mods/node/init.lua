@@ -21,7 +21,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
         },
         "mine9fs:dir"
       ) 
-      root_dir:get_luaentity():set_path("/kubernetes")
+      root_dir:get_luaentity():set_path("/")
     
   end
 end)
