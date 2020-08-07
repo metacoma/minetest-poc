@@ -32,7 +32,7 @@ function Mine9Dir:set_path(path)
   minetest.log("set path to " .. path)
   self.path = path
   self.object:set_nametag_attributes({
-    {a = 255, r = 255, g = 0, b = 0},
+    Colorspec = {a = 255, r = 255, g = 13, b = 14},
     text = string.gsub(self:get_path(), "(.*/)(.*)", "%2")
   }) 
 
@@ -84,8 +84,20 @@ function Mine9Dir:set_path(path)
     texture = "kubernetes_cm.png"
   end
 
-  if (({string.gsub(path, "/gridchan$", "")})[2] == 1) then
+  if (({string.gsub(path, "/9gridchan/mnt/plumb$", "")})[2] == 1) then
+    texture = "mine9fs_plumber.png"
+  end
+
+  if (({string.gsub(path, "/inferno/chan$", "")})[2] == 1) then
+    texture = "mine9fs_plumber.png"
+  end
+
+  if (({string.gsub(path, "/9gridchan$", "")})[2] == 1) then
     texture = "mine9fs_plan9.png"
+  end
+
+  if (({string.gsub(path, "/inferno$", "")})[2] == 1) then
+    texture = "mine9fs_inferno.png"
   end
 
   if (texture ~= nil) then

@@ -21,6 +21,7 @@ RUN make \
     && make install
 
 WORKDIR /usr/local
+RUN apt-get install -y docker.io
 EXPOSE 30000
 ENTRYPOINT ["/usr/local/bin/minetestserver"] 
 CMD [""]

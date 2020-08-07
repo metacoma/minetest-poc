@@ -6,18 +6,19 @@ services:
       context: .
       dockerfile: Dockerfile.minetest
     image: metacoma/mine9wm:latest
-    depends_on:
-      - jsonfs
+#    depends_on:
+#      - jsonfs
 #      - kubernetes
-      - sshfs-ob0
-      - sshfs-ob1
-      - sshfs-ob2
+#      - sshfs-ob0
+#      - sshfs-ob1
+#      - sshfs-ob2
     privileged: true
     networks:
       - minetest-poc
     ports:
       - 0.0.0.0:30000:30000/udp 
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
       - ./games/mine9wm:/usr/local/games/mine9wm
       - ./files/minetest.conf:/usr/local/etc/minetest.conf  
     user: root
@@ -26,15 +27,18 @@ services:
       - sh
       - -exc
       - |
-        test -d /kubernetes || mkdir /kubernetes 
-        test -d /ob0 || mkdir /ob0
-        test -d /ob1 || mkdir /ob1
-        test -d /ob2 || mkdir /ob2
-        test -d /gridchan || mkdir /gridchan 
-        9pfs -p 6666 192.168.1.160 /gridchan
-        sleep 3
+        test -d /9gridchan || mkdir /9gridchan 
+        test -d /inferno || mkdir /inferno
+        9pfs -p 6666 192.168.1.133 /9gridchan
+        9pfs -p 3333 192.168.1.253 /inferno
         /usr/local/bin/minetestserver --config /usr/local/etc/minetest.conf --gameid mine9wm 
 
+
+
+#        test -d /kubernetes || mkdir /kubernetes 
+#        test -d /ob0 || mkdir /ob0
+#        test -d /ob1 || mkdir /ob1
+#        test -d /ob2 || mkdir /ob2
 #        9mount '!tcp!sshfs-ob0!1800' /ob0
 #        9mount '!tcp!sshfs-ob1!1800' /ob1
 #        9mount '!tcp!sshfs-ob2!1800' /ob2
@@ -48,14 +52,17 @@ services:
       context: .
       dockerfile: Dockerfile.inferno
     image: metacoma/inferno-os
+    volumes:
+      - ./files/inferno/:/usr/inferno/host:ro
     networks:
       - minetest-poc
     entrypoint:  
       - sh
       - -exc
       - |
-        /bin/sleep 36000
-        
+        emu /dis/sh /host/plumb_9front.sh ""
+
+#        emu /dis/sh /host/plumb.sh "/tools/NOTICE"
     
 
   kubernetes:
