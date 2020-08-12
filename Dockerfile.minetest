@@ -1,6 +1,6 @@
 #FROM webd97/minetestserver:latest
 FROM ubuntu:bionic
-RUN apt-get update && apt-get install -y build-essential wget libirrlicht-dev cmake libbz2-dev libpng-dev libjpeg-dev libxxf86vm-dev libgl1-mesa-dev libsqlite3-dev libogg-dev libvorbis-dev libopenal-dev libcurl4-gnutls-dev libfreetype6-dev zlib1g-dev libgmp-dev libjsoncpp-dev luarocks libyaml-dev sshpass ssh libncurses5-dev libncursesw5-dev 9mount
+RUN apt-get update && apt-get install -y build-essential wget libirrlicht-dev cmake libbz2-dev libpng-dev libjpeg-dev libxxf86vm-dev libgl1-mesa-dev libsqlite3-dev libogg-dev libvorbis-dev libopenal-dev libcurl4-gnutls-dev libfreetype6-dev zlib1g-dev libgmp-dev libjsoncpp-dev luarocks libyaml-dev sshpass ssh libncurses5-dev libncursesw5-dev 9mount git libfuse-dev 
 WORKDIR /tmp
 ENV MINETEST_VERSION 5.3.0
 RUN wget https://github.com/minetest/minetest/archive/${MINETEST_VERSION}.tar.gz && tar xf ${MINETEST_VERSION}.tar.gz && mv minetest-${MINETEST_VERSION} ./minetest && rm ${MINETEST_VERSION}.tar.gz 
@@ -13,15 +13,28 @@ RUN make install
 RUN luarocks install lyaml 
 RUN luarocks install inspect
 RUN luarocks install luafilesystem
-RUN apt-get install -y git  libfuse-dev
+RUN luarocks install luasocket
+WORKDIR /tmp
+RUN git clone https://github.com/lneto/luadata
+WORKDIR luadata
+ADD patch/luadata_build.patch  .
+RUN patch -p1 < ./luadata_build.patch
+ENV LUA_VERSION 5.1
+RUN make && \
+  cp data.so /usr/local/lib/lua/${LUA_VERSION}/
 WORKDIR /tmp
 RUN git clone https://github.com/bunny351/9pfs
 WORKDIR 9pfs
 RUN make \
     && make install
 
+WORKDIR /tmp
+RUN git clone https://github.com/metacoma/lua9p -b network
+WORKDIR /tmp/lua9p
+RUN cp 9p.lua /usr/local/share/lua/${LUA_VERSION}/ 
+
+
 WORKDIR /usr/local
-RUN apt-get install -y docker.io
 EXPOSE 30000
 ENTRYPOINT ["/usr/local/bin/minetestserver"] 
 CMD [""]

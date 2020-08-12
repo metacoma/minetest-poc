@@ -21,7 +21,24 @@ minetest.register_on_generated(function(minp, maxp, seed)
         },
         "mine9fs:dir"
       ) 
-      root_dir:get_luaentity():set_path("/")
+
+      local root_dir = minetest.add_entity(
+        { 
+          x = 10,
+          y = 10,
+          z = 15 
+        },
+        "mine9p:mount"
+      ) 
+
+      local root_dir = minetest.add_entity(
+        { 
+          x = -10,
+          y = 10,
+          z = -10, 
+        },
+        "mine9p:mount"
+      ) 
     
   end
 end)

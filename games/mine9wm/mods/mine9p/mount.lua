@@ -1,7 +1,7 @@
 local socket = require 'socket'
 local np = require '9p'
 
-StyxMountEntity = {
+Nine9MountEntity = {
   initial_properties = {
       drawtype = "front",
       physical = true,
@@ -17,12 +17,12 @@ StyxMountEntity = {
 } 
 
 
-function StyxMountEntity:set_source(self, new_source) 
+function Nine9MountEntity:set_source(self, new_source) 
   assert(new_source) 
   self.source = new_source
 end
 
-function StyxMountEntity:get_source(self) 
+function Nine9MountEntity:get_source(self) 
   return self.source
 end
 
@@ -45,14 +45,14 @@ function mount_formspec(name)
     return table.concat(formspec, "")
 end
 
-StyxMountEntity.on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, direction)
+Nine9MountEntity.on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, direction)
   if (puncher) then
     local player_name = puncher:get_player_name() 
     minetest.show_formspec(player_name, "mine9p:mount", mount_formspec())
   end
 end
 
-minetest.register_entity("mine9p:mount", StyxMountEntity)
+minetest.register_entity("mine9p:mount", Nine9MountEntity)
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
     if formname == "mine9p:mount" then
