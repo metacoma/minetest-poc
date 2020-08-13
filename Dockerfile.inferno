@@ -1,24 +1,45 @@
-FROM i386/ubuntu:bionic
-COPY inferno-os /usr/inferno/
-ENV PATH=$PATH:/usr/inferno/Linux/386/bin
-WORKDIR /usr/inferno
+FROM i386/ubuntu:bionic AS builder
+
+
+WORKDIR /usr
+
 RUN apt-get update && \
-    apt-get install -y build-essential libx11-dev libxext-dev libx11-6 libxext-dev \
-    python3-pip libfuse2 curl git
+    apt-get install -y build-essential git
+
+
+WORKDIR /usr/
+
+ENV INFERNO_BRANCH=master
+ENV INFERNO_COMMIT=ed97654bd7a11d480b44505c8300d06b42e5fefe
+  
+
+RUN git clone --depth 1 -b ${INFERNO_BRANCH} https://bitbucket.org/inferno-os/inferno-os 
+
+WORKDIR /usr/inferno-os
+
+
+
+ENV PATH=$PATH:/usr/inferno-os/Linux/386/bin
+
 RUN \
-  MKFLAGS='SYSHOST=Linux OBJTYPE=386 ROOT='$PWD; \
-  mk $MKFLAGS mkdirs && \
-  mk $MKFLAGS emuinstall && \
+  MKFLAGS='SYSHOST=Linux OBJTYPE=386 CONF=emu-g ROOT='$PWD;  \
+  git reset --hard ${INFERON_COMMIT}            && \
+  mk $MKFLAGS mkdirs                            && \
+  mk $MKFLAGS emuinstall                        && \
   mk $MKFLAGS emunuke
 
-RUN pip3 install git+https://github.com/opencredo/kubefuse.git
-RUN curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
-RUN chmod +x /usr/local/bin/kubectl
+FROM i386/ubuntu:bionic
+ENV ROOT_DIR /usr/local/inferno
 
-# Only for aws
-#RUN curl -o /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.7/2020-07-08/bin/linux/amd64/aws-iam-authenticator
-#RUN chmod +x /usr/local/bin/aws-iam-authenticator
-RUN pip3 install awscli
+# :(
+# RUN apt-get update && apt-get install -y libx11-dev libxext-dev libx11-6 libxext-dev
+
+COPY --from=builder /usr/inferno-os/Linux/386/bin/emu-g /usr/bin
+COPY --from=builder /usr/inferno-os/dis $ROOT_DIR/root
+COPY --from=builder /usr/inferno-os/appl $ROOT_DIR/root
+COPY --from=builder /usr/inferno-os/lib $ROOT_DIR/root
+COPY --from=builder /usr/inferno-os/module $ROOT_DIR/root
+COPY --from=builder /usr/inferno-os/usr $ROOT_DIR/root
 
 
-ENTRYPOINT ["emu"]
+ENTRYPOINT ["emu-g"]
