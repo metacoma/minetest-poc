@@ -74,9 +74,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
       local conn = np.attach(tcp, "bebebeko", "")
 
       local root_dir = readdir(conn, "./")
-      for n, file in pairs(root_dir) do
-        minetest.log(dump(file))
-      end
+      --for n, file in pairs(root_dir) do
+      --  minetest.log(dump(file))
+      --end
 
       local player_pos = player:get_pos()
 

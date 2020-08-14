@@ -74,7 +74,7 @@ mine9p.readfile = function(ctx, path)
   offset = offset + #data
 
   while 1 do
-    print("read .. " .. offset)
+    --print("read .. " .. offset)
     local new_data = ctx.np:read(f, offset, READ_BUF_SIZ)
     if (new_data == nil) then
       break 

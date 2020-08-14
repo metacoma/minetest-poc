@@ -66,6 +66,127 @@ local FIDSZ    = 4
 local QIDSZ    = 13
 local IOHEADSZ = 24  -- io (Twrite/Rread) header size, i.e. minimum msize
 
+local map = {}
+map[100] = "Tversion"
+map[101] = "Rversion"
+map[102] = "Tauth"
+map[103] = "Rauth"
+map[104] = "Tattach"
+map[105] = "Rattach"
+map[107] = "Rerror"
+map[108] = "Tflush"
+map[109] = "Rflush"
+map[110] = "Twalk"
+map[111] = "Rwalk"
+map[112] = "Topen"
+map[113] = "Ropen"
+map[114] = "Tcreate"
+map[115] = "Rcreate"
+map[116] = "Tread"
+map[117] = "Rread"
+map[118] = "Twrite"
+map[119] = "Rwrite"
+map[120] = "Tclunk"
+map[121] = "Rclunk"
+map[122] = "Tremove"
+map[123] = "Rremove"
+map[124] = "Tstat"
+map[125] = "Rstat"
+map[126] = "Twstat"
+map[127] = "Rwstat"
+map[128] = "Tmax"
+
+
+local client_pos = {
+  x = 10,
+  y = 40,
+  z = 10,
+} 
+
+local client_entity = nil
+
+local tcp_servers = {}
+local servers = 0
+
+local function get_new_server_pos()   
+  local new_pos = {}
+  local delta = 15
+  minetest.log("tcp servers count " .. #tcp_servers)
+  if (servers == 0) then
+      new_pos = {
+        x = client_pos.x + delta,
+        y = client_pos.y,
+        z = client_pos.z + delta,
+      } 
+    else 
+      new_pos = {
+        x = -client_pos.x, 
+        y = client_pos.y,
+        z = -client_pos.z 
+      } 
+  end
+  servers = servers + 1
+   
+  return new_pos
+end
+
+packet_queue = {} 
+
+packet_count = 0
+
+  
+
+function show_packet() 
+  if (#packet_queue == 0) then
+    return
+  end
+   
+  local packet = packet_queue[1] 
+
+  local packet_entity = minetest.add_entity(packet["from_pos"], "mine9p:Nine9Packet")
+
+  packet_entity:get_luaentity():set_dest(packet["peername"])
+
+  packet_entity:set_acceleration(vector.direction(packet["from_pos"], packet["to_pos"]))
+  local texture = "mine9p_" .. packet["packet_name"] .. ".png"
+  packet_entity:set_properties({
+    textures = { texture, texture, texture, texture, texture, texture },
+    base_texture = texture
+  }) 
+
+  table.remove(packet_queue, 1)
+
+end
+
+function add_packet_to_show_queue(ctx, type) 
+
+  local peername = ctx.connection:getpeername()
+  local server_entity = tcp_servers[peername]
+
+  local from_pos = client_pos
+  local to_pos = server_entity:get_pos()
+  
+  packet_count = packet_count + 1
+
+  local packet_name = map[type]
+
+  if (packet_name:sub(1,1) == "R") then
+    from_pos = server_entity:get_pos()
+    to_pos = client_pos
+    peername = "client"
+  end
+
+  minetest.log("QUEUE packet to  " .. peername .. " type " .. packet_name .. " from: " .. dump(from_pos) .. " to: " .. dump(to_pos))
+
+  table.insert(packet_queue, {
+    from_pos = from_pos,
+    to_pos = to_pos,
+    packet_name = packet_name,
+    peername = peername
+  }) 
+
+  minetest.after(packet_count, show_packet)
+end
 
 function np.newfid(conn)
   local f = conn.fidfree
@@ -125,11 +246,12 @@ local function getstr(from)
   return p.str or ""
 end
 
-local function readmsg(connection, type)
+local function readmsg(ctx, type)
   local rawsize, rawrest
 
-  if (connection ~= nil) then
-      rawsize = connection:receive(4)
+  if (ctx.connection ~= nil) then
+      add_packet_to_show_queue(ctx, type)
+      rawsize = ctx.connection:receive(4)
     else
       rawsize = io.read(4)
   end
@@ -137,8 +259,8 @@ local function readmsg(connection, type)
   local bsize = data.new(rawsize):segment()
   local size = bsize:layout{size = num9p(0, 4)}.size
 
-  if (connection ~=  nil) then
-    rawrest = connection:receive(size - 4)
+  if (ctx.connection ~=  nil) then
+    rawrest = ctx.connection:receive(size - 4)
     else
     rawrest = io.read(size - 4)
   end
@@ -294,7 +416,7 @@ local function doversion(conn, msize)
   n = putheader(buf, Tversion, 4 + n, tag(conn))
   writemsg(conn.connection, buf)
 
-  local buf = readmsg(conn.connection, Rversion)
+  local buf = readmsg(conn, Rversion)
   buf:layout(LXversion)
 
   if buf.msize < IOHEADSZ then
@@ -322,7 +444,7 @@ local function doattach(conn, uname, aname)
   n = putheader(tx, Tattach, FIDSZ + FIDSZ + n, tag(conn))
   writemsg(conn.connection, tx:segment(0, n))
 
-  local rx = readmsg(conn.connection, Rattach)
+  local rx = readmsg(conn, Rattach)
 
   fid.qid = getqid(rx:segment(HEADSZ))
   if not fid.qid then
@@ -340,6 +462,49 @@ function np.attach(connection, uname, aname, msize, endpoint)
   conn.fidactive = nil
   conn.nextfid   = 0
   conn.connection = connection
+
+  if (client_entity == nil) then
+    client_entity = minetest.add_entity(client_pos, "mine9p:Nine9Client") 
+    client_entity:set_nametag_attributes({
+      Colorspec = {a = 255, r = 255, g = 13, b = 14},
+      text = "minetest",
+    }) 
+
+    local node_metadata_ref = minetest.get_meta(client_pos) 
+    local r = node_metadata_ref:from_table({ 
+      fields = {
+        name = "client"
+      } 
+    }) 
+
+  end
+  
+  local peername = conn.connection:getpeername()
+
+  if (tcp_servers[peername] == nil) then
+    local server_pos = get_new_server_pos() 
+    tcp_servers[peername] = minetest.add_entity(server_pos, "mine9p:Nine9Server")
+
+    tcp_servers[peername]:set_nametag_attributes({
+      Colorspec = {a = 255, r = 255, g = 13, b = 14},
+      text = peername,
+    }) 
+    local node_metadata_ref = minetest.get_meta(server_pos) 
+    local r = node_metadata_ref:from_table({ 
+      fields = {
+        name = peername
+      } 
+    }) 
+
+    assert(r == true)
+
+
+    
+    local test = minetest.get_meta(server_pos)
+    minetest.log(dump(server_pos) .. " " .. dump(test:to_table()))
+  end
+  --show_packet(conn, Tattach)
+  add_packet_to_show_queue(conn, Tattach)
 
   -- WHY IT'S NOT WORKING???
   -- if (sock ~= nil) then
@@ -407,8 +572,9 @@ function np.walk(conn, ofid, nfid, path)
 
   n = putheader(tx, Twalk, FIDSZ + FIDSZ + 2 + n, tag(conn))
   writemsg(conn.connection, tx:segment(0, n))
+  add_packet_to_show_queue(conn, Twalk)
 
-  local rx = readmsg(conn.connection, Rwalk)
+  local rx = readmsg(conn, Rwalk)
   rx:layout{nwqid = num9p(HEADSZ, 2)}
 
   -- clone succeeded
@@ -441,8 +607,9 @@ function np.open(conn, fid, mode)
 
   local n = putheader(tx, Topen, 5, tag(conn))
   writemsg(conn.connection, tx:segment(0, n))
+  add_packet_to_show_queue(conn, Topen)
 
-  local rx = readmsg(conn.connection, Ropen)
+  local rx = readmsg(conn, Ropen)
 
   fid.qid = getqid(rx:segment(HEADSZ))
   if not fid.qid then
@@ -466,8 +633,10 @@ function np.create(conn, fid, name, perm, mode)
 
   local n = putheader(tx, Tcreate, n + 9, tag(conn))
   writemsg(conn.connection, tx:segment(0, n))
+  add_packet_to_show_queue(conn, Tcreate)
 
-  local rx = readmsg(conn.connection, Rcreate)
+  local rx = readmsg(conn, Rcreate)
+
 
   fid.qid = getqid(rx:segment(HEADSZ))
   if not fid.qid then
@@ -488,8 +657,9 @@ function np.read(conn, fid, offset, count)
 
   local n = putheader(tx, Tread, FIDSZ + 8 + 4, tag(conn))
   writemsg(conn.connection, tx:segment(0, n))
+  add_packet_to_show_queue(conn, Tread)
 
-  local rx = readmsg(conn.connection, Rread)
+  local rx = readmsg(conn, Rread)
   rx:layout{count = num9p(HEADSZ, 4)}
   return rx:segment(HEADSZ + 4, rx.count)
 end
@@ -508,8 +678,9 @@ function np.write(conn, fid, offset, seg)
   local n = putheader(tx, Twrite, FIDSZ + 8 + 4 + #seg, tag(conn))
   writemsg(conn.connection, tx:segment(0, n - #seg))
   writemsg(conn.connection, seg:segment(0, #seg))
+  add_packet_to_show_queue(conn, Twrite)
 
-  local rx = readmsg(conn.connection, Rwrite)
+  local rx = readmsg(conn, Rwrite)
   rx:layout{count = num9p(HEADSZ, 4)}
   return rx.count
 end
@@ -520,8 +691,9 @@ local function clunkrm(conn, type, fid)
 
   local n = putheader(tx, type, FIDSZ, tag(conn))
   writemsg(conn.connection, tx:segment(0, n))
+  add_packet_to_show_queue(conn, Tclunk)
 
-  readmsg(conn.connection, type+1)
+  readmsg(conn, type+1)
   freefid(conn, fid)
 end
 
@@ -539,8 +711,9 @@ function np.stat(conn, fid)
 
   local n = putheader(tx, Tstat, FIDSZ, tag(conn))
   writemsg(conn.connection, tx:segment(0, n))
+  add_packet_to_show_queue(conn, Tstat)
   
-  local rx = readmsg(conn.connection, Rstat)
+  local rx = readmsg(conn, Rstat)
   return getstat(rx:segment(HEADSZ + 2))
 end
 
@@ -555,6 +728,7 @@ function np.wstat(conn, fid, st)
 
   local n = putheader(tx, Twstat, FIDSZ + 2 + tx.stsize, tag(conn))
   writemsg(conn.connection, tx:segment(0, n - tx.stsize))
+  add_packet_to_show_queue(conn, Twstat)
 
   local seg = conn.txbuf:segment(n - tx.stsize)
 
@@ -563,7 +737,7 @@ function np.wstat(conn, fid, st)
   end
 
   writemsg(conn.connection, seg:segment(0, tx.stsize))
-  return readmsg(conn.connection, Rwstat)
+  return readmsg(conn, Rwstat)
 end
 
 

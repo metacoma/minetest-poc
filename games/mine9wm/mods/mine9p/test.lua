@@ -28,9 +28,9 @@ end
 
 local m9 = mine9p.mount("tcp!192.168.1.132!1025")
 
---remote_mount(m9, "tcp!192.168.1.133!6666", "/tmp/9gridchan") 
---remote_exec(m9, "ns")
---print_dir(m9, target)
-print_dir(m9, "./")
-local file = m9:readfile("./makemk.sh")
-print(file)
+remote_mount(m9, "tcp!192.168.1.133!6666", "/tmp/9gridchan") 
+remote_exec(m9, "ns")
+print_dir(m9, target)
+--print_dir(m9, "./")
+--local file = m9:readfile("./makemk.sh")
+--print(file)
