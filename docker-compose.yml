@@ -21,16 +21,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./games/mine9wm:/usr/local/games/mine9wm
       - ./files/minetest.conf:/usr/local/etc/minetest.conf  
+      - ./games/mine9wm/mods/mine9p/9p.lua:/usr/local/share/lua/5.1/9p.lua
     user: root
 #        mount -t 9p -o tcp,name=`whoami`,uname=`whoami`,port=5640 jsonfs /tmp/json
     entrypoint: 
       - sh
       - -exc
       - |
-        test -d /9gridchan || mkdir /9gridchan 
-        test -d /inferno || mkdir /inferno
-        9pfs -p 6666 192.168.1.133 /9gridchan
-        9pfs -p 3333 192.168.1.253 /inferno
         /usr/local/bin/minetestserver --config /usr/local/etc/minetest.conf --gameid mine9wm 
 
   inferno: 
@@ -39,8 +36,8 @@ services:
       dockerfile: Dockerfile.inferno
     image: metacoma/inferno-os
     volumes:
-      - ./files/inferno/:/usr/inferno/host:ro
-      - ./files/inferno/profile:/usr/inferno/lib/sh/profile:ro
+      - ./files/inferno/:/usr/inferno-os/host:ro
+      - ./files/inferno/profile:/usr/inferno-os/lib/sh/profile:ro
     ports:
       - 0.0.0.0:1025:1025
     networks:
@@ -49,7 +46,7 @@ services:
       - sh
       - -exc
       - |
-        emu /dis/sh /lib/sh/profile
+        emu-g /dis/sh /lib/sh/profile
 
   inferno-client: 
     build:
