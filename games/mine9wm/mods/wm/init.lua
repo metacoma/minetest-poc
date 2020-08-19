@@ -1,5 +1,0 @@
-minetest.register_on_joinplayer(function(player)
-  local player_inventory = player:get_inventory()
-  player_inventory:add_item("main", "mine9fs:configure" .. ' 1')
-  player_inventory:add_item("main", "mine9fs:run" .. ' 1')
-end)
