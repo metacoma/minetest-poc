@@ -1,0 +1,13 @@
+diff --git a/GNUmakefile b/GNUmakefile
+index b24880b..3c55c40 100644
+--- a/GNUmakefile
++++ b/GNUmakefile
+@@ -1,6 +1,6 @@
+ CC=gcc
+-CFLAGS=-I. -fPIC
+-LDLIBS=-llua
++CFLAGS=-I. -fPIC -I/usr/include/lua5.1
++LDLIBS=-llua5.1
+ OBJ=luadata.o data.o handle.o layout.o binary.o luautil.o
+ 
+ data.so: $(OBJ)

@@ -89,6 +89,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 
       for _, file in pairs(root_dir) do
         local pos = platform:allocateRandomPos() 
+        minetest.log(dump(file))
         local entity_type = (file.qid.type == 128) and "mine9fs:dir" or "mine9p:file"
         local entity = minetest.add_entity(pos, entity_type)
         entity:set_nametag_attributes({

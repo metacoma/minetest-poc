@@ -1,10 +1,10 @@
 FROM i386/ubuntu:bionic AS builder
+#FROM i386/alpine:latest
 
 
 WORKDIR /usr
 
-RUN apt-get update && \
-    apt-get install -y build-essential git
+RUN apt update && apt-get install -y git build-essential
 
 
 WORKDIR /usr/
@@ -18,21 +18,21 @@ RUN git clone --depth 1 -b ${INFERNO_BRANCH} https://bitbucket.org/inferno-os/in
 WORKDIR /usr/inferno-os
 
 
-
 ENV PATH=$PATH:/usr/inferno-os/Linux/386/bin
 
+# RUN apk add --update libc6-compat
+#RUN apk add --update libc6-compat
+
 RUN \
-  MKFLAGS='SYSHOST=Linux OBJTYPE=386 CONF=emu-g ROOT='$PWD;  \
-  git reset --hard ${INFERON_COMMIT}            && \
-  mk $MKFLAGS mkdirs                            && \
-  mk $MKFLAGS emuinstall                        && \
-  mk $MKFLAGS emunuke
+  export PATH=$PATH:/usr/inferno-os/Linux/386/bin                             \
+  export MKFLAGS='SYSHOST=Linux OBJTYPE=386 CONF=emu-g ROOT='/usr/inferno-os; \
+  git reset --hard ${INFERNO_COMMIT}            && \
+  /usr/inferno-os/Linux/386/bin/mk $MKFLAGS mkdirs                            && \
+  /usr/inferno-os/Linux/386/bin/mk $MKFLAGS emuinstall                        && \
+  /usr/inferno-os/Linux/386/bin/mk $MKFLAGS emunuke
 
 FROM i386/ubuntu:bionic
 ENV ROOT_DIR /usr/local/inferno
-
-# :(
-# RUN apt-get update && apt-get install -y libx11-dev libxext-dev libx11-6 libxext-dev
 
 COPY --from=builder /usr/inferno-os/Linux/386/bin/emu-g /usr/bin
 COPY --from=builder /usr/inferno-os/dis $ROOT_DIR/root
